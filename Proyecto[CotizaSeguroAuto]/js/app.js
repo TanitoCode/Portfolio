@@ -67,6 +67,33 @@ document.querySelector('.mensaje').remove();
           },3000);
     }
 
+// Imprime el resultado de la cotizacion
+Interfaz.prototype.mostrarResultado = function(seguro, total){
+  const resultado = document.getElementById('resultado');
+  let marca;
+  switch(seguro.marca) {
+      case '1':
+        marca = 'Americano';
+      break;
+      case '2':
+        marca = 'Asiatico';
+      break;
+      case '3':
+        marca = 'Europeo';
+      break;
+  }
+  // crear un div
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <p>Tu resumen:</p>
+    <p>Marca : ${marca}</p>
+    <p>Año: ${seguro.anio}</p>
+    <p>Tipo: ${seguro.tipo}</p>
+    <p>Total: $ ${total}</p>
+  `;
+  resultado.appendChild(div);
+}
+
 
 //EvenListener
 const formulario = document.getElementById("cotizar-seguro");
@@ -102,6 +129,9 @@ formulario.addEventListener("submit", function (e) {
 
     //Cotizar el seguro
     const cantidad = seguro.cotizarSeguro();
+
+    //Mostrar el resultado
+    interfaz.mostrarResultado(seguro, cantidad);
   }
 });
 
